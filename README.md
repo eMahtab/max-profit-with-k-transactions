@@ -19,19 +19,22 @@ https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/
 
 ```java
 public static int maxProfitWithKTransactions(int[] prices, int k) {
-	    int[][] dpTable = new int[k+1][prices.length];
+	if(prices == null || prices.length == 0 || k == 0){
+            return 0;
+        }
+	int[][] dpTable = new int[k+1][prices.length];
 	    
-	    for(int i = 1; i <= k; i++) {
-	    	for(int j = 1; j < prices.length; j++) {
-	    		int profit = Integer.MIN_VALUE;
-	    		for(int x = 0; x < j; x++) {
-	    			profit = Math.max(profit, prices[j] - prices[x] + dpTable[i-1][x]) ;
-	    		}
-	    		dpTable[i][j] = Math.max(dpTable[i][j-1], profit);
-	    	}
+	for(int i = 1; i <= k; i++) {
+	    for(int j = 1; j < prices.length; j++) {
+	    	  int profit = Integer.MIN_VALUE;
+	    	  for(int x = 0; x < j; x++) {
+	    		profit = Math.max(profit, prices[j] - prices[x] + dpTable[i-1][x]) ;
+	    	  }
+	    	  dpTable[i][j] = Math.max(dpTable[i][j-1], profit);
 	    }
+	}
 	    
-	    return dpTable[k][prices.length-1];
+      return dpTable[k][prices.length-1];
 }
 ```
 
@@ -42,4 +45,24 @@ Time Complexity  = O(n^2 k)
 Space Complexity = O(nk)
 ```
 
-## Dynamic Programming Implementation - Space Optimization
+## Dynamic Programming Implementation - Runtime Optimization O(nk)
+
+```java
+public static int maxProfitWithKTransactions(int[] prices, int k) {
+	if(prices == null || prices.length == 0 || k == 0){
+            return 0;
+        }
+	int[][] dpTable = new int[k+1][prices.length];
+	for(int i = 1; i <= k; i++) {
+	    int profit = Integer.MIN_VALUE;
+	    int x = 0;
+	    for(int j = 1; j < prices.length; j++) {
+	    	  profit = Math.max(profit,  - prices[x] + dpTable[i-1][x]) ;
+	    	  dpTable[i][j] = Math.max(dpTable[i][j-1], profit + prices[j]);
+	    	  x++;
+	    }
+        }
+	    
+     return dpTable[k][prices.length-1];
+}
+```
