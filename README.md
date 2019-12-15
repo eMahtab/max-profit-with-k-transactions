@@ -73,3 +73,37 @@ Above dynamic programming implementation have both runtime and space complexity 
 Time Complexity  = O(nk)
 Space Complexity = O(nk)
 ```
+
+## Dynamic Programming Implementation - Space Optimization O(n)
+
+```java
+public static int maxProfitWithKTransactions(int[] prices, int k) {
+	if(prices == null || prices.length == 0 || k == 0){
+            return 0;
+        }
+		
+	int[] currentProfits = new int[prices.length];
+	int[] previousProfits = new int[prices.length];
+	    
+	for(int i = 1; i <= k; i++) {
+	    int profit = Integer.MIN_VALUE;
+	    int x = 0;
+	    for(int j = 1; j < prices.length; j++) {
+	    	 profit = Math.max(profit,  - prices[x] + previousProfits[x]) ;
+	    	 currentProfits[j] = Math.max(currentProfits[j-1], profit + prices[j]);
+	    	 x++;
+	    }
+	    previousProfits = Arrays.copyOf(currentProfits, prices.length);
+	    Arrays.fill(currentProfits, 0);
+	}
+	    
+     return previousProfits[prices.length-1];
+}
+```
+
+Above dynamic programming implementation have runtime complexity of O(nk) and space complexity of O(n)
+
+```
+Time Complexity  = O(nk)
+Space Complexity = O(n)
+```
