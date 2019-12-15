@@ -66,3 +66,10 @@ public static int maxProfitWithKTransactions(int[] prices, int k) {
      return dpTable[k][prices.length-1];
 }
 ```
+
+Above dynamic programming implementation have both runtime and space complexity of O(nk)
+
+```
+Time Complexity  = O(nk)
+Space Complexity = O(nk)
+```
