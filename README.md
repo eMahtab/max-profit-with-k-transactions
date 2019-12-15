@@ -5,6 +5,7 @@ You are given an array of integers representing the prices of a single stock on 
 Find the maximum profit that you can make buying and selling the stock, given k transactions. Note that you can only hold 1 share of the stock at a time; in other words, you cannot buy more than 1 share of the stock on any given day, and you cannot buy a share of the stock if you are still holding another share. Note that you also don't need to use all k transactions that you're allowed.
 
 **e.g.**
+
 Input: [5, 11, 3, 50, 60, 90], k = 2
 
 Output: 93 (Buy: 5, Sell: 11; Buy: 3, Sell: 90)
