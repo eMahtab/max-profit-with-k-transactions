@@ -13,3 +13,24 @@ Output: 93 (Buy: 5, Sell: 11; Buy: 3, Sell: 90)
 
 # Related Question
 https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/
+
+
+## Dynamic Programming Implementation
+
+```java
+public static int maxProfitWithKTransactions(int[] prices, int k) {
+	    int[][] dpTable = new int[k+1][prices.length];
+	    
+	    for(int i = 1; i <= k; i++) {
+	    	for(int j = 1; j < prices.length; j++) {
+	    		int profit = Integer.MIN_VALUE;
+	    		for(int x = 0; x < j; x++) {
+	    			profit = Math.max(profit, prices[j] - prices[x] + dpTable[i-1][x]) ;
+	    		}
+	    		dpTable[i][j] = Math.max(dpTable[i][j-1], profit);
+	    	}
+	    }
+	    
+	    return dpTable[k][prices.length-1];
+}
+```
